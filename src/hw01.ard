@@ -38,7 +38,7 @@
 
 -- 4. Определите функцию if, аналогичную следующей функции:
 {- Haskell:
-   if :: Bool -> a -> a -> a
+   if :: Bool -> Bool -> Bool -> Bool
    if True t _ = t
    if False _ e = e
 -}
