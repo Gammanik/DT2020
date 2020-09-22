@@ -1,6 +1,6 @@
 \import Utils
 \import hw01 (if)
-\import lect03 (Fin, M5, fileTest, fsuc, fzero, trans, vec)
+\import lect03 (Fin, M5, fileTest, fsuc, fzero, toNat, trans, vec)
 
 
 -- 1. Напишите функцию lookup, которая принимает List A и натуральное число и возвращает элемент по заданому индексу.
@@ -58,15 +58,14 @@
 -- repl говорит, что если у нас есть два равных типа, то у нас есть функция из одного во второй.
 -- Определите repl через transport.
 
-\func repl {A B : \Type} (p : A = B) (a : A) : B => {?}
+\func repl {A B : \Type} (p : A = B) (a : A) : B => transport (\lam t => t) p a
 
 -- Определите transport через repl и pmap.
 
-\func transport' {A : \Type} (B : A -> \Type) {a a' : A} (p : a = a') (b : B a) : B a' => {?}
+\func transport' {A : \Type} (B : A -> \Type) {a a' : A} (p : a = a') (b : B a) : B a' => repl (pmap B p) b
 
 -- 7. Определите тип CTree A n полных бинарных деревьев высоты ровно n, которые хранят элементы только во внутренних узлах, но не в листьях.
 --    Высота листа равна 0.
-
 \data CTree (A : \Type) (n : Nat) \elim n
   | 0 => tnil
   | suc n => tcons (CTree A n) A (CTree A n)
@@ -80,7 +79,10 @@
 \func height {A : \Type} (n : Nat) (t : Tree A n) : Fin (suc n) \elim n, t
   | 0, _ => fzero
   | suc n, tnil' => fzero
-  | suc n, (tcons' t1 a t2) => fsuc (height n t1) -- todo: fix with if?
+  | suc n, (tcons' t1 a t2) =>
+    \let | h1 => height n t1
+         | h2 => height n t2
+    \in fsuc (if (toNat h1 < toNat h2) h2 h1)
 
 -- 9. Чему равно fileTest (в нормальной форме)? Докажите это.
 \func prove-tileTest : fileTest = (17, 8, 13, 55, 18, 21) => idp
