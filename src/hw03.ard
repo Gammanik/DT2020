@@ -123,4 +123,10 @@
 
 
 
+\func tNil : Tree Nat 9 => tnil'
+\func tHeight3 : Tree Nat 3 => tcons' (tcons' tnil' 2 (tcons' tnil' 3 tnil')) 8 tnil'
+\func tHeight3r : Tree Nat 4 => tcons' (tcons' tnil' 0 (tcons' tnil' 0 tnil')) 0 tnil'
 
+\func treeTest1 : toNat(height 9 tNil) = 0 => idp
+\func treeTest3 : toNat(height 3 tHeight3) = 3 => idp
+\func treeTest4 : toNat(height 4 tHeight3r) = 3 => idp
