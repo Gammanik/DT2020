@@ -73,7 +73,8 @@
 -- 8. Определите тип Tree A n бинарных деревьев высоты не больше n, которые хранят элементы только во внутренних узлах, но не в листьях.
 --    Высота листа равна 0.
 \data Tree (A : \Type) (n : Nat) \elim n
-  | suc n => {tnil' | tcons' (Tree A n) A (Tree A n) }
+  | _ => tnil'
+  | suc n => tcons' (Tree A n) A (Tree A n)
 
 -- определите функцию, возвращающую высоту дерева.
 \func height {A : \Type} (n : Nat) (t : Tree A n) : Fin (suc n) \elim n, t
@@ -119,3 +120,7 @@
 
 -- z ─ нейтральный элемент по сложению.
 \func matMul {A : \Type} (z : A) (add mul : A -> A -> A) (n m k : Nat) (M : Mat A n m) (N : Mat A m k) : Mat A n k => {?}
+
+
+
+

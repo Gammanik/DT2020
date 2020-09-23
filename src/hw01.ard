@@ -25,6 +25,7 @@
 
 -- 3. Расставьте приоритеты функций f1, f2, f3, f4, f5 и f6 так, чтобы функция test проходила тайпчекинг.
 
+\import Utils (Bool, true)
 \import lect01 \hiding (+,*)
 
 \func f1 (x y : Nat) => x
